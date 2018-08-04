@@ -1,0 +1,27 @@
+$("#login").click(function(e){
+			//alert("D");
+			$(function(){
+				var user = {};
+				user.act = "login";
+				user.ac = $("input[name='log_ac']").val();
+				user.pw = $("input[name='log_pw']").val();
+			//	alert(user.ac);
+				$.ajax({
+					//url: "http://305db-idm4smb32469.codeanyapp.com:5001/login",
+          url: "http://port-8888.oscarwu-oscarwu28742835.codeanyapp.com/Login"
+					type: "POST",
+					data: user,
+					success: function (result) {
+						alert(result);
+       			 console.log(result);
+        		if(result.status == 200){
+            		console.log("hope can see here");
+        			}
+    			},
+    			error: function(result){
+        			console.log(result);
+    				}
+				});
+				return false;
+			});
+		});

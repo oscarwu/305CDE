@@ -1,0 +1,178 @@
+<html>
+
+
+<script>
+function tableFilter() {
+
+		var input, filter, table, tr, td, i;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("myTable");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+		
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}       
+		}
+	}
+  
+  $.ajax({
+				url : "http://api.wunderground.com/api/b20b6bbf1fd069a8/geolookup/conditions/q/HK/HongKong.json",
+				dataType : "jsonp",
+				success : function(parsed_json) {
+					var temp_c = parsed_json['current_observation']['temp_c'];
+					document.getElementById("weather").innerHTML = temp_c + "&deg;C";
+				}
+				});
+</script>
+
+<body>
+  
+  <a href="/logout">log out</a><br>
+  <div id="weather"></div><br>
+
+<table id="myTable">
+						<tr class="header">
+							
+					<input type="text" id="myInput" onkeyup="tableFilter()" placeholder="Search for content.." title="Type in a name">
+		
+						
+						<br><br>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#qa1">
+												Gamblers
+												<i class="fa fa-angle-right pull-right"></i>
+											</a>
+										</h3>
+									</div>
+									<div id="qa1" class="panel-collapse collapse">
+										<div class="panel-body">
+
+											<h4>
+												How long for the gambling counseling?</h4>
+											<p>
+												</p>
+											<h4>
+												Actually, it maintains for half a year. But it depends on the situation of the gamblers.</h4>
+												<p>
+												</p>
+												<h4>
+												Can pathological gambling turn back to social gambling finally?
+												</h4>
+												<p>
+												</p>
+												<h4>
+												No, if one becomes problem / pathological gambler, it is essential for him / her to avoid gambling again. Overestimation of the ability to control gambling will lead to relapse if the problem / pathological gambler expose to gambling again.												</h4>
+												<p>
+												</p>
+												<h4>
+												I began to stop gambling, but my wife still felt suspicious. What can I do?												
+												</h4>
+												<p>
+												</p>
+												<h4>
+												Suspicion from family members is commonly found in the process of recovery. They felt hurt and anxious because you often told lies. Therefore, it is suggested that you should observe your behaviour that may cause suspicion and you share your difficulties and stress to her during non-gambling period so as to minimize her suspicion.												</h4>
+												<p>
+												</p>
+												<h4>
+												What can I do if I want to stop gambling but always failed?						
+												</h4>
+												<p>
+												</p>
+												<h4>
+												If your want to quit gambling, first you have to consider why you want to quit. Do you accept to be a loser? Then, think more about how gambling affected your work, relationship, emotion, integrity and health. What is the consequence of continuous gambling? Finally, ask for professional advice. Through counseling, you may stop gambling gradually.												</h4>
+												<p>
+												</p>
+
+											
+
+										</div>
+									</div>
+								</div>
+							</td>						
+						</tr>
+						
+						<tr>
+							<td>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#qa2">
+												Family
+												<i class="fa fa-angle-right pull-right"></i>
+											</a>
+										</h3>
+									</div>
+									<div id="qa2" class="panel-collapse collapse">
+										<div class="panel-body">										
+											<h4>
+												How should the family members face with problem / pathological gambler?</h4>
+											<p>
+												When we are sick, we need to consult doctors. By following their advice, we can recover from the illness. Appling the same rule to the problem / pathological gamblers, they are also suffering from the “illness” of uncontrollable gambling. After they have received professional counseling to abstain from gambling and advised to repay the debt, their “illness” can be recovered. As their family members we need to seek help immediately. Only helping them to repay the debt is not a correct approach for their recovery.</p>
+											<h4>
+												How to manage problem / pathological gambler's finance?</h4>
+											<p>
+												If possible, all gamblers’ finance are handled by their family members. This temporary method is to let them have no money to gamble. If gamblers have made improvement after counselling, they can re-handle their finance.</p>
+											
+											<h4>
+												How to live with gamblers?</h4>
+											<p>
+												To live with gamblers require your assertiveness in finance control, your patience to endure their unreasonable accusations, your courage to express your feelings towards their gambling behavior and your eagerness to bring them for counselling.</p>
+											<p>
+												<span class="bold">Learn more:</span></p>
+											<p>
+												<a href="http://www.hkgamblers-recovery.org/eng/" rel="external" target="_blank">Quit Gambling service</a></p>
+											<p>
+												<a href="http://www.donotgamble.org.hk/en/helpdesk1.php" rel="external" target="_blank">Quit Gambling Service Hotline</a></p>
+			
+										</div>
+									</div>
+								</div>
+							</td>						
+						</tr>
+						
+						<tr>
+							<td>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#qa5">
+												Public
+												<i class="fa fa-angle-right pull-right"></i>
+											</a>
+										</h3>
+									</div>
+									<div id="qa5" class="panel-collapse collapse">
+										<div class="panel-body">
+											
+											<h4>
+												Is there any particular causes for problem / pathological gamblers?</h4>
+											<p>
+												Until now, there is no particular cause to make problem / pathological gamblers. But if parents were problem / pathological gamblers, they admit gambling, have won a lot of money, ambitious, low self-confidence, poor financial management, no life goal, escape stress, they have the chance to be problem / pathological gambler.</p>
+											
+										</div>
+									</div>
+								</div>
+							</td>						
+						</tr>
+						
+						
+						
+					</table>
+					
+					
+</body>
+
+</html>

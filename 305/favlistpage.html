@@ -1,0 +1,204 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css "href="css/web.css"/>
+</head>
+ <style>
+   <tr>
+          <td class = "tabnum"></td>
+           <td class = "tabname"></td>
+           <td class = "tablink"></td>
+          </tr>
+          <tr>
+          <td class = "tabnum"></td>
+           <td class = "tabname"></td>
+           <td class = "tablink"></td>
+          </tr>
+  </style>
+
+<script>
+$(document).ready(function()
+{   
+    mylogin=localStorage.getItem("mylogin");
+	
+	if(mylogin==""){
+	alert("Please login first");
+	return;
+	}
+  
+  $("button").click(function()
+	{
+		
+		if(this.id=="fav1"){
+		  favtext=$("#fav1text").html();
+		}else if(this.id=="fav2"){
+		  favtext=$("#fav2text").html();
+		}
+		
+	
+        
+          var mydata="user="+mylogin+"&fav="+favtext;
+        alert(mydata);
+				$.ajax(
+				{
+					url: "http://port-8888.oscarwu-oscarwu28742835.codeanyapp.com/addfavourlist",
+					type: 'POST',
+					data: mydata,
+					success: function(resultReturn)
+					{ 
+						//alert("search success");
+           alert(resultReturn);
+						//alert(JSON.stringify(resultReturn));
+			      var _stringObj = JSON.stringify(resultReturn);
+			      var stringObj = JSON.parse(resultReturn);
+			      for(i = 0; i < stringObj.length; i++)
+            {
+					    var num = i + 1;
+					    document.getElementsByClassName("tabnum")[i].innerHTML = num;
+					    document.getElementsByClassName("tabname")[i].innerHTML = stringObj[i].texttitle;
+				      document.getElementsByClassName("tablink")[i].innerHTML = stringObj[i].command;
+				     }
+					},error: function (xhr, textStatus, errorThrown) 
+					{
+						alert("search failed");
+						console.log(textStatus);
+            alert(xhr.responseText);
+      		}
+				});
+			
+   });
+   
+   
+   
+   $("#readfav").click(function()
+	{
+		alert("read");
+		
+        
+          var mydata="user="+mylogin;
+        
+				$.ajax(
+				{
+					url: "http://port-8888.oscarwu-oscarwu28742835.codeanyapp.com/readfavourlist",
+					type: 'POST',
+					data: mydata,
+					success: function(resultReturn)
+					{ 
+						//alert("search success");
+           alert(resultReturn);
+						//alert(JSON.stringify(resultReturn));
+			    //  var _stringObj = JSON.stringify(resultReturn);
+			      var stringObj = JSON.parse(resultReturn);
+				  alert(stringObj.length);
+			      for(i = 0; i < stringObj.length; i++)
+            {
+					    var num = i + 1;
+					    document.getElementsByClassName("tabnum")[i].innerHTML = num;
+					    document.getElementsByClassName("tabname")[i].innerHTML = stringObj[i].user + "<div id='"+stringObj[i]._id+"' class='removebutton'>Remove</a>";
+				      document.getElementsByClassName("tablink")[i].innerHTML = stringObj[i].favourite;
+					  document.getElementsByClassName("removelink")[i].innerHTML = stringObj[i]._id;
+				     }
+					},error: function (xhr, textStatus, errorThrown) 
+					{
+						alert("search failed");
+						console.log(textStatus);
+            alert(xhr.responseText);
+      		}
+				});
+			
+   });
+   
+   
+   
+   
+   $(".removelink").click(function(e)
+	{
+		
+		alert($(this).closest('tr').children('td.removelink').text());
+		
+		removeid=$(this).closest('tr').children('td.removelink').text();
+		
+	
+        
+          var mydata="removeid="+removeid;
+        alert(mydata);
+				$.ajax(
+				{
+					url: "http://port-8888.oscarwu-oscarwu28742835.codeanyapp.com/removefavourlist",
+					type: 'POST',
+					data: mydata,
+					success: function(resultReturn)
+					{ 
+						//alert("search success");
+           alert(resultReturn);
+						//alert(JSON.stringify(resultReturn));
+			      var _stringObj = JSON.stringify(resultReturn);
+			      var stringObj = JSON.parse(resultReturn);
+			      for(i = 0; i < stringObj.length; i++)
+            {
+					    var num = i + 1;
+					    document.getElementsByClassName("tabnum")[i].innerHTML = num;
+					    document.getElementsByClassName("tabname")[i].innerHTML = stringObj[i].texttitle;
+				      document.getElementsByClassName("tablink")[i].innerHTML = stringObj[i].command;
+				     }
+					},error: function (xhr, textStatus, errorThrown) 
+					{
+						alert("search failed");
+						console.log(textStatus);
+            alert(xhr.responseText);
+      		}
+				});
+			
+   });
+   
+});
+  
+  $.ajax({
+				url : "http://api.wunderground.com/api/b20b6bbf1fd069a8/geolookup/conditions/q/HK/HongKong.json",
+				dataType : "jsonp",
+				success : function(parsed_json) {
+					var temp_c = parsed_json['current_observation']['temp_c'];
+					document.getElementById("weather").innerHTML = temp_c + "&deg;C";
+				}
+				});
+</script>
+<body>
+  <div class = "mask">
+	<div class = "style1">User page</div>
+      <div id="weather"> </div><br>
+  <a href="/favlistpage">favourite list</a> <a href="/logout">log out</a> <a href="/searchpage">search</a>
+  	<br>
+  	
+  	<div id="fav1text">My favorite 1</div><button id="fav1" class="button">
+    	Add favotire
+  	</button>
+	
+	<br><br><br>
+	<div id="fav2text">My favorite 2</div><button id="fav2" class="button">
+    	Add favorite
+  	</button>
+    <br><br><br>
+	
+	<div id="readfav">
+    	Read favorite list
+  	</div>
+
+   <table id="mytable">
+      <tr>
+          <td class = "tabnum"></td>
+           <td class = "tabname"></td>
+           <td class = "tablink"></td>
+		   <td class = "removelink"></td>
+          </tr>
+          <tr>
+          <td class = "tabnum"></td>
+           <td class = "tabname"></td>
+		   <td class = "tablink"></td>
+           <td class = "removelink"></td>
+          </tr>
+  </table>
+  </div>
+  
+</body>
+
+</html>
